@@ -1,27 +1,32 @@
 <template>
-  <div class="page">
-    <h1>test</h1>
-    <el-button  type="primary" icon="el-icon-search" v-on:click="switchTo">切换</el-button>
+    <div class="page">
+     
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'HelloWorld',
-  data () {
+  data() {
+    const item = {
+      date: "2016-05-02",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1518 弄"
+    };
     return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  methods: {
-    switchTo: function () {
-      this.$switchTo('/', 'forward')
-    }
+      tableData: Array(10).fill(item)
+    };
   }
-}
+};
 </script>
 
 <style scoped>
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
 
+.el-aside {
+  color: #333;
+}
 </style>

@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Test from '@/components/Test.vue'
+import userList from '@/page/userListPage/index'
+import userInfo from '@/page/userInfoPage/index'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/userlist',
+      name: '用户列表',
+      component: userList
     },
     {
-      path: '/test',
-      name: 'Test',
-      component: Test
+      path: '/userinfo',
+      name: '用户详情',
+      component: userInfo
     }
   ]
 })

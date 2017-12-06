@@ -7,7 +7,11 @@ import axios from 'axios'
 import Element from 'element-ui'
 import pageSwitcher from './plugins/page-switcher.js'
 import './assets/css/transition.css'
+import AV from './plugins/init-leancloud.js'
+const appId = '9VCYnqf2LbmdINmnqhuRcnqA-gzGzoHsz';
+const appKey = 'Dfp1LWAGD3Wc9j6ydKYAlaVz';
 
+Vue.use(AV, {appId: appId, appKey: appKey});
 Vue.use(Element);
 Vue.prototype.axios = axios;
 window.axios = axios;
@@ -25,4 +29,4 @@ var app = new Vue({
   components: { App }
 })
 
-Vue.use(pageSwitcher, { router: router, vm: app });
+Vue.use(pageSwitcher, { router: router, vm: app, defaultBackward: 'fade' });
