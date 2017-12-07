@@ -40,6 +40,10 @@ export default {
     methods: {
         handleCheck(item) {
             console.log(item);
+        },
+        birthToAge(birth) {
+            
         }
     }
 }
+
