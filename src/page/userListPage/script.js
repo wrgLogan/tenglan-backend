@@ -23,14 +23,18 @@ export default {
             
         // })
 
-        var role = AV.Object.createWithoutData('_Role', '5a1ef06a2f301e0063e5d67d');
-        
-        var query = new AV.Query('_User');
-        
-        query.equalTo('role', role);
-        
-        query.find().then(function (users) {
+        _this.getUsers({
+            start: 0,
+            limit: 10
+        }).then(function(res) {
+            console.log(res);
+            var users = res.list;
             _this.userList = users.map(function(r) { return r.attributes });
+            _this.userList.forEach(function(user) {
+                user.age = 16;
+            });
+        }).catch(function(err) {
+            console.log(err);
         });
     },
     methods: {

@@ -5,55 +5,48 @@
                 <div class="title">{{ title }}</div>
             </header>
             <el-table
-                :data="userList"
+                :data="applicationList"
                 stripe
                 style="width: 100%;"
             >
                 
                 <el-table-column
-                    prop="name"
-                    label="姓名"
-                    width="100">
+                    prop="project.title"
+                    label="项目名"
+                    width="250">
                 </el-table-column>
                 <el-table-column
-                    prop="gender"
-                    label="性别"
-                    width="50">
+                    prop="applicant"
+                    label="申请人"
+                    width="80">
                 </el-table-column>
                 <el-table-column
-                    prop="age"
-                    label="年龄"
-                    width="50">
+                    prop="createdAt"
+                    label="申请时间"
+                    width="80">
                 </el-table-column>
                 <el-table-column
-                    prop="mobilePhoneNumber"
-                    label="手机号"
-                    width="110">
+                    prop="status1"
+                    label="一审状态"
+                    width="80">
                 </el-table-column>
                 <el-table-column
-                    prop="university"
-                    label="学校"
+                    prop="needInterview"
+                    label="是否需要面试"
+                    width="120"
                     >
                 </el-table-column>
                 <el-table-column
-                    prop="education"
-                    label="教育水平"
-                    width="80">
+                    prop="status2"
+                    label="二审状态"
+                    width="80"
+                    >
                 </el-table-column>
                 <el-table-column
-                    prop="city"
-                    label="现居城市"
-                    width="80">
-                </el-table-column>
-                <el-table-column
-                    prop="joinNum"
-                    label="项目参与数"
-                    width="100">
-                </el-table-column>
-                <el-table-column
-                    prop="applyNum"
-                    label="项目申请数"
-                    width="100">
+                    prop="status"
+                    label="是否通过"
+                    width="80"
+                    >
                 </el-table-column>
                 <el-table-column
                     fixed="right"
