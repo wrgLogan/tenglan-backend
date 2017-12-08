@@ -12,6 +12,7 @@ var install = function(Vue, option) {
 
     Vue.prototype.AV = AV;
 
+    // 获取用户列表
     Vue.prototype.getUsers = function(opt) {
         var opt = opt || {};
         var start = opt.start || 0;
@@ -43,6 +44,21 @@ var install = function(Vue, option) {
         });
         
     }
+
+    // 修改用户数据
+    Vue.prototype.updateUserInfo = function(opt) {}
+
+    // 获取项目列表
+    Vue.prototype.getProjects = function(opt) {}
+
+    // 新增项目
+    Vue.prototype.createProject = function(opt) {}
+
+    // 更新项目信息
+    Vue.prototype.updateProject = function(opt) {}
+
+    // 上传项目报名表
+    Vue.prototype.uploadApplication = function(opt) {}
 }
 
 export default {
