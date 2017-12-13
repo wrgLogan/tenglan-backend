@@ -42,23 +42,27 @@
             </el-table>
         </el-main>
 
-        <!-- <el-dialog
-        title="修改申请状态"
-        :visible.sync="statusDialogVisible"
+        <el-dialog
+        title="上传文件"
+        :visible.sync="uploadVisible"
+        
         >
-            <el-select v-model="fileStatus" placeholder="请选择申请状态">
-                <el-option
-                v-for="item in statusOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
+            <el-upload
+                class="upload-demo"
+                action=""
+                :on-remove="onRemove"
+                :auto-upload="false"
+                :limit="1"
+                :on-change="onChange"
+                >
+                <el-button size="small" type="primary">选择文件</el-button>
+                <div slot="tip" class="el-upload__tip">请选择要上传的文件</div>
+            </el-upload>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="statusDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="submitUpdateStatus">确 定</el-button>
+                <el-button @click="uploadVisible = false">取 消</el-button>
+                <el-button type="primary" @click="submitUpload">上 传</el-button>
             </div>
-        </el-dialog> -->
+        </el-dialog>
     </div>
 </template>
 <script src="./script.js"></script>
