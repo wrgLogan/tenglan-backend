@@ -278,6 +278,7 @@ var install = function(Vue, option) {
 
         var query = new AV.Query('DownloadFile');
         query.include('file');
+        query.equalTo('type', 'newsFile');
 
         return new Promise((resolve, reject) => {
             query.find().then(function(list) {
