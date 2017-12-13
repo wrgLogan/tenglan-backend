@@ -4,8 +4,10 @@ import userList from '@/page/userListPage/index'
 import userInfo from '@/page/userInfoPage/index'
 import projectList from '@/page/projectListPage/index'
 import applicationList from '@/page/applicationListPage/index'
+import files from '@/page/filesPage/index'
+import projectInfo from '@/page/projectInfoPage/index'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -25,9 +27,19 @@ export default new Router({
       component: projectList
     },
     {
+      path: '/projectinfo/:objectId',
+      name: '项目编辑',
+      component: projectInfo
+    },
+    {
       path: '/applicationlist',
       name: '审批列表',
       component: applicationList
+    },
+    {
+      path: '/files',
+      name: '资料列表',
+      component: files
     }
   ]
 })

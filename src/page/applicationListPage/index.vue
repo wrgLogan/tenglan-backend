@@ -53,11 +53,29 @@
                     width="100">
                     <template slot-scope="scope">
                         <!-- <el-button @click="handleCheck(scope.row)" type="text" size="small">查看</el-button> -->
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small" @click="showUpdate(scope.row)">更改状态</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </el-main>
+        <el-dialog
+        title="修改申请状态"
+        :visible.sync="statusDialogVisible"
+        
+        >
+            <el-select v-model="applyStatus" placeholder="请选择申请状态">
+                <el-option
+                v-for="item in statusOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="statusDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="submitUpdateStatus">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script src="./script.js"></script>

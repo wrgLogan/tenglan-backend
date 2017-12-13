@@ -8,7 +8,6 @@
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
               <el-dropdown-item>退出</el-dropdown-item>
               <!-- <el-dropdown-item>删除</el-dropdown-item> -->
             </el-dropdown-menu>
@@ -35,10 +34,14 @@
               <span>项目管理</span>
             </el-menu-item>
             <el-menu-item index="3" @click="goTo('/applicationlist')">
-              <i class="el-icon-document"></i>
+              <i class="el-icon-tickets"></i>
               <span>审批管理</span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="4" @click="goTo('/files')">
+              <i class="el-icon-document"></i>
+              <span>资料管理</span>
+            </el-menu-item>
+            <el-menu-item index="5">
               <i class="el-icon-bell"></i>
               <span>消息管理</span>
             </el-menu-item>

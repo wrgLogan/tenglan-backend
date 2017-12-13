@@ -134,6 +134,24 @@ var install = function(Vue, option) {
         });
     }
 
+    // 获取项目详情
+    Vue.prototype.getProjectById = function(opt) {
+        var opt = opt || {};
+        var objectId = opt.objectId;
+
+        var query = new this.AV.Query('Project');
+        query.include('downloadFile');
+        query.include('downloadFile.file');
+        return new Promise((resolve, reject) => {
+            query.get(objectId).then(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            })
+        });
+        
+    }
+
     // 新增项目
     Vue.prototype.createProject = function(opt) {
         var opt = opt || {};
@@ -178,7 +196,7 @@ var install = function(Vue, option) {
     Vue.prototype.uploadApplication = function(opt) {}
 
     // 获取申请表列表
-    Vue.prototype.getApplications = function() {
+    Vue.prototype.getApplications = function(opt) {
         var opt = opt || {};
         var start = opt.start || 0;
         var limit = opt.limit || 10;
@@ -209,6 +227,24 @@ var install = function(Vue, option) {
         })
     }
 
+    // 更改申请状态
+    Vue.prototype.updateApplication = function(opt) {
+        var opt = opt || {};
+        var status = opt.status;
+        var objectId = opt.objectId;
+
+        var apply = AV.Object.createWithoutData('Application', objectId);
+        apply.set('status1', status);
+        
+        return new Promise((resolve, reject) => {
+            apply.save().then((res) => {
+                resolve(res);
+            }, (err) => {
+                reject(err);
+            });
+        })
+    }
+
     // 上传资料
     Vue.prototype.uploadFile = function(opt) {
         var opt = opt || {};
@@ -220,8 +256,9 @@ var install = function(Vue, option) {
             fileObj.save().then(function(fileItem) {
                 var downloadFile = new AV.Object('DownloadFile');
                 downloadFile.set('file', fileItem);
-                downloadFile.set('fileName', fileItem.name);
+                downloadFile.set('fileName', file.name);
                 downloadFile.set('type', 'newsFile');
+                downloadFile.set('status', '0');
 
                 downloadFile.save().then(function(res) {
                     resolve(res);
@@ -231,6 +268,37 @@ var install = function(Vue, option) {
             });
         });
         
+    }
+
+    // 获取资料列表
+    Vue.prototype.getDownloadFiles = function(opt) {
+        var opt = opt || {};
+        var start = opt.start || 0;
+        var limit = opt.limit || 10;
+
+        var query = new AV.Query('DownloadFile');
+        query.include('file');
+
+        return new Promise((resolve, reject) => {
+            query.find().then(function(list) {
+                query.count().then(count => {
+                    resolve({
+                        list: list,
+                        pagination: {
+                            start: start,
+                            limit: limit,
+                            total: count,
+                            totalPage: Math.ceil(count / limit)
+                        }
+                    });
+                }, err => {
+                    reject(err);
+                })
+                
+            }, err => {
+                reject(err);
+            });
+        });
     }
 }
 

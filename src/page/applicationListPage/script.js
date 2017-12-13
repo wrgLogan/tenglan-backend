@@ -2,7 +2,17 @@ export default {
     data(){
         return {
             title: '审批列表',
-            applicationList: []
+            applicationList: [],
+            applyStatus: null,
+            statusOptions: [{
+                label: '未通过',
+                value: 'NO'
+            },{
+                label: '通过',
+                value: 'YES'
+            }],
+            statusDialogVisible: false,
+            checkedApplication: null
         }
     },
     mounted() {
@@ -33,6 +43,28 @@ export default {
                 _this.applicationList = res.list;
                 
             })
+        },
+        showUpdate(application) {
+            this.checkedApplication = application;
+            this.statusDialogVisible = true;
+            this.applyStatus = application.attributes.status1;
+        },
+        submitUpdateStatus() {
+            var _this = this;
+
+            _this.updateApplication({
+                objectId: _this.checkedApplication.id,
+                status: _this.applyStatus
+            }).then(res => {
+                _this.getApplicationList();
+                this.statusDialogVisible = false;
+            }).catch(err => {
+                _this.$message({
+                    message: err,
+                    type: 'error'
+                })
+            })
         }
     }
 }
+
