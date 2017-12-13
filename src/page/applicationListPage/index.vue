@@ -11,21 +11,20 @@
             >
                 
                 <el-table-column
-                    prop="project.title"
-                    label="项目名"
-                    width="250">
+                    prop="attributes.project.attributes.title"
+                    label="项目名">
                 </el-table-column>
                 <el-table-column
-                    prop="applicant"
+                    prop="attributes.applicant.attributes.name"
                     label="申请人"
                     width="80">
                 </el-table-column>
                 <el-table-column
                     prop="createdAt"
                     label="申请时间"
-                    width="80">
+                    width="220">
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                     prop="status1"
                     label="一审状态"
                     width="80">
@@ -41,11 +40,11 @@
                     label="二审状态"
                     width="80"
                     >
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column
-                    prop="status"
+                    prop="passStatus"
                     label="是否通过"
-                    width="80"
+                    width="180"
                     >
                 </el-table-column>
                 <el-table-column
@@ -53,7 +52,7 @@
                     label="操作"
                     width="100">
                     <template slot-scope="scope">
-                        <el-button @click="handleCheck(scope.row)" type="text" size="small">查看</el-button>
+                        <!-- <el-button @click="handleCheck(scope.row)" type="text" size="small">查看</el-button> -->
                         <el-button type="text" size="small">编辑</el-button>
                     </template>
                 </el-table-column>

@@ -4,7 +4,7 @@
             <header>
                 <div class="title">{{ title }}</div>
                 <div class="top-btns">
-                    <el-button type="primary"  @click="dialogFormVisible = true">+ 新建项目</el-button>
+                    <el-button type="primary"  @click="dialogFormVisible = true">+ 上传文件</el-button>
                 </div>
             </header>
             <el-table

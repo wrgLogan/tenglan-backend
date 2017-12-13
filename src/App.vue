@@ -55,18 +55,18 @@
 
     </el-container>
     <transition name="fade">
-      <login-modal :isShow="showLogin"></login-modal>
+      <login-modal :isShow="showLogin" :login="login"></login-modal>
     </transition>
   </div>
 </template>
 <script>
-import loginModal from "@/components/loginModal.vue"
+import loginModal from "@/components/loginModal.vue";
 
 export default {
   name: "app",
   data: function() {
     return {
-      projName: '藤蓝后台管理系统',
+      projName: "藤蓝后台管理系统",
       showLogin: false
     };
   },
@@ -75,33 +75,70 @@ export default {
       return this.$root.animation;
     }
   },
-  components:{
+  components: {
     loginModal
   },
-  mounted(){
+  mounted() {
     var AV = this.AV;
 
-    AV.User.logIn('admin', '123456').then(function(user) {
-      console.log(user);
-      sessionStorage.setItem('token', user.sessionToken);
-      AV.user = user;
-      this.showLogin = false;
-    });
-    
+    // AV.User.logIn('admin', '123456').then(function(user) {
+    //   console.log(user);
+    //   sessionStorage.setItem('token', user.sessionToken);
+    //   AV.user = user;
+    //   this.showLogin = false;
+    // });
+
+    if (!AV.User.current()) {
+      this.showLogin = true;
+    }
+    linstenClicks();
   },
   methods: {
     goTo(page) {
       this.$switchTo(page);
+    },
+    login(username, password) {
+      var _this = this;
+      this.AV.User.logIn(username, password).then(
+        function(res) {
+          _this.showLogin = false;
+        },
+        function(err) {
+          _this.$message({
+            message: err.rawMessage,
+            type: "error"
+          });
+        }
+      );
     }
   }
 };
+
+var linstenClicks = function(openId) {
+  var body = document.body;
+  
+  body.onclick = function(evt) {
+    var query = {};
+    var specTag = 'action-tag';
+    var target = evt.target;
+
+    console.log("id:" + target.id);
+    console.log("class:" + target.className);
+  };
+  
+};
+
+var factoryFormData = function() {
+  var specTag = 'action-tag';
+}
 </script>
 <style>
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
 html,
@@ -135,31 +172,31 @@ body {
   background-color: #fff;
 }
 
-.el-main{
+.el-main {
   position: relative;
 }
 
-.proj-name{
+.proj-name {
   color: #fff;
   margin-top: 12px;
   font-weight: 400;
 }
 
-.el-menu{
+.el-menu {
   height: 100%;
-  box-shadow: 1px 0px 6px 0px rgba(0,0,0, 0.1);
+  box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.1);
 }
 
-.top-header{
+.top-header {
   display: flex;
   justify-content: space-between;
 }
 
-.setting{
+.setting {
   line-height: 60px;
   color: #fff;
 }
-.el-dropdown{
+.el-dropdown {
   color: #fff;
 }
 /* .page{

@@ -8,20 +8,6 @@ export default {
     mounted() {
         var AV = this.AV;
         var _this = this;
-        // var query = new AV.Query('User');
-        // query.include('username');
-        // query.include('name');
-        // query.include('university');
-        // query.include('major');
-        // query.include('birth');
-        // query.find().then(function(users) {
-        //     console.log(users);
-        //     var arr = [];
-        //     users.forEach(function(u) {
-        //         if (u.)
-        //     })
-            
-        // })
 
         _this.getUsers({
             start: 0,
@@ -29,7 +15,11 @@ export default {
         }).then(function(res) {
             console.log(res);
             var users = res.list;
-            _this.userList = users.map(function(r) { return r.attributes });
+            _this.userList = users.map(function(r) { 
+                var obj = r.attributes;
+                obj.objectId = r.id;
+                return obj;
+            });
             _this.userList.forEach(function(user) {
                 user.age = 16;
             });
@@ -39,7 +29,15 @@ export default {
     },
     methods: {
         handleCheck(item) {
-            console.log(item);
+            
+            this.updateUserInfo({
+                objectId: item.objectId,
+                params: {
+                    address: '友谊路6号'
+                }
+            }).then(function() {
+                console.log('save success');
+            })
         },
         birthToAge(birth) {
             
