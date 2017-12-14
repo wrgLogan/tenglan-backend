@@ -48,7 +48,7 @@
                     </el-form-item>
 
                     <el-form-item label="报名表">
-                      <span>{{ form.attributes.downloadFile.attributes.fileName }}</span>
+                      <span>{{ form.attributes.downloadFile ? form.attributes.downloadFile.attributes.fileName : "" }}</span>
                       <input type="file" @change="getFile($event)"/>
                     </el-form-item>
                     
