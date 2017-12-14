@@ -94,7 +94,7 @@ export default {
     if (!AV.User.current()) {
       this.showLogin = true;
     }
-    linstenClicks();
+    // linstenClicks();
   },
   methods: {
     goTo(page) {

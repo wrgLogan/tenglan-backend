@@ -7,5 +7,25 @@ header{
 }
 
 .body{
-    width: 600px;
+    width: 80%;
+}
+
+.aditcontent{
+    width: 100%;
+    min-height: 100px;
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid #dcdfe6;
+    padding: 10px 15px;
+    line-height: 20px;
+}
+
+.el-form-item.requirement .el-col{
+    margin-right: 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.el-form-item.requirement span{
+    
 }

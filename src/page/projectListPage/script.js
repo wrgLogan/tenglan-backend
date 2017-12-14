@@ -79,6 +79,10 @@ export default {
                 _this.statusDialogVisible = false;
                 _this.getUsers(0, 10);
             });
+        },
+        toEditProject(proj) {
+            console.log(proj);
+            this.$switchTo(`/projectinfo/${proj.objectId}`);
         }
     },
 }

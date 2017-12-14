@@ -190,7 +190,53 @@ var install = function(Vue, option) {
     }
 
     // 更新项目信息
-    Vue.prototype.updateProject = function(opt) {}
+    Vue.prototype.updateProject = function(opt) {
+        var opt = opt || {};
+        var keyArr = ['title', 'briefInt', 'planNum', 'startDate', 'endDate', 'projectDetails', 'projectNotice', 'projectTeachers', 'requirement1', 'requirement2', 'requirement3', 'requirement4'];
+        var form = opt.form;
+        var objectId = opt.objectId;
+        var fileItem = opt.file;
+
+        var project = AV.Object.createWithoutData('Project', objectId);
+        
+        for (var key in form) {
+            if (keyArr.indexOf(key) > -1) {
+                project.set(key, form[key]);
+            };
+        };
+
+        return new Promise((resolve, reject) => {
+
+            if (fileItem) {
+                var fileObje = new AV.File(fileItem.name, fileItem);
+                fileObje.save().then(file => {
+                    var downloadFile = new AV.Object('DownloadFile');
+                    downloadFile.set('file', file);
+                    downloadFile.set('fileName', fileItem.name);
+                    downloadFile.set('type', 'projFile');
+                    downloadFile.save().then(function(downFile) {
+                        project.set('downloadFile', downFile);
+                        project.save().then(res => {
+                            resolve(res);
+                        }, err => {
+                            reject(err);
+                        })
+                    
+                        
+                    });
+                });
+            } else {
+                project.save().then(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+                
+            }
+                    
+        });
+
+    }
 
     // 上传项目报名表
     Vue.prototype.uploadApplication = function(opt) {}

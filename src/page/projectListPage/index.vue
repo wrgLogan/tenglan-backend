@@ -44,7 +44,7 @@
                     width="150">
                     <template slot-scope="scope">
                         <el-button @click="updateStatus(scope.row)" type="text" size="small">修改状态</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small" @click="toEditProject(scope.row)">编辑</el-button>
                     </template>
                 </el-table-column>
             </el-table>
