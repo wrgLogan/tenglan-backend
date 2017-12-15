@@ -6,6 +6,7 @@ import projectList from '@/page/projectListPage/index'
 import applicationList from '@/page/applicationListPage/index'
 import files from '@/page/filesPage/index'
 import projectInfo from '@/page/projectInfoPage/index'
+import messages from '@/page/messagePage/index'
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/files',
       name: '资料列表',
       component: files
+    },
+    {
+      path: '/messages',
+      name: '消息列表',
+      component: messages
     }
   ]
 })

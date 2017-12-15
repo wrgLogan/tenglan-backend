@@ -41,7 +41,7 @@
               <i class="el-icon-document"></i>
               <span>资料管理</span>
             </el-menu-item>
-            <el-menu-item index="5">
+            <el-menu-item index="5" @click="goTo('/messages')">
               <i class="el-icon-bell"></i>
               <span>消息管理</span>
             </el-menu-item>

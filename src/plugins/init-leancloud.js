@@ -14,6 +14,27 @@ var install = function(Vue, option) {
 
     Vue.prototype.AV = AV;
 
+    var getUserById = function () {
+        var storageUsers = {};
+
+        return function(objectId) {
+
+            return new Promise((resolve, reject) => {
+                if (!!storageUsers[objectId]) {
+                    resolve(storageUsers[objectId])
+                } else {
+                    var query = new AV.Query('_User');
+                    query.get(objectId).then(user => {
+                        resolve(user);
+                        storageUsers[objectId] = user;
+                    }, err => {
+                        reject(err);
+                    });
+                };
+            });
+        };
+    }()
+
     // 获取用户列表
     Vue.prototype.getUsers = function(opt) {
         var opt = opt || {};
@@ -251,6 +272,9 @@ var install = function(Vue, option) {
 
         query.include('project');
         query.include('applicant');
+        query.include('applyFile.file');
+        query.include('videoFile.file');
+        query.include('reportCardFile.file');
         query.limit(limit);
         query.skip(start);
 
@@ -347,6 +371,66 @@ var install = function(Vue, option) {
             });
         });
     }
+
+    Vue.prototype.createMessage = function(opt) {
+        var opt = opt || {};
+        var type = opt.type;
+        var title = opt.title || '通知';
+        var content = opt.content;
+        var receiver = opt.receiverObjectId;
+        
+        var message = new AV.Object('Message');
+        message.set('title', title);
+        message.set('type', type);
+        message.set('content', content);
+        
+        if (type == 'private') {
+            var receiverItem = AV.Object.createWithoutData('_User', receiver);
+            message.set('receiver', receiverItem);
+        };
+
+        return new Promise((resolve, reject) => {
+            message.save().then(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+
+    Vue.prototype.getMessages = function(opt) {
+        var opt = opt || {};
+        var start = opt.start || 0;
+        var limit = opt.limit || 10;
+        
+        var query = new AV.Query('Message');
+        query.skip(start);
+        query.limit(limit);
+        query.include('receiver');
+
+        return new Promise((resolve, reject) => {
+            
+            query.find().then(messages => {
+                query.count().then(count => {
+                    resolve({
+                        list: messages,
+                        pagination: {
+                            start: start,
+                            limit: limit,
+                            total: count,
+                            totalPage: Math.ceil(count/limit)
+                        }
+                    });
+                }, err => {
+                    reject(err);
+                });
+            }, err => {
+                reject(err);
+            });
+        });
+    };
+
+    
 }
 
 export default {

@@ -39,7 +39,7 @@ export default {
             var formData = {
                 'title': this.form.attributes.title,
                 'briefInt': this.form.attributes.briefInt,
-                'planNum': this.form.attributes.planNum,
+                'planNum': parseInt(this.form.attributes.planNum),
                 'startDate': this.form.attributes.startDate,
                 'endDate': this.form.attributes.endDate,
                 'projectDetails': projectDetails,

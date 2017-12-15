@@ -22,7 +22,25 @@
                 <el-table-column
                     prop="createdAt"
                     label="申请时间"
-                    width="220">
+                    width="180">
+                </el-table-column>
+                <el-table-column
+                    label="申请表">
+                    <template slot-scope="scope">
+                        <a :href="scope.row.attributes.applyFile.attributes.file.attributes.url" download>{{ scope.row.attributes.applyFile.attributes.fileName }}</a>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="展示视频">
+                    <template slot-scope="scope">
+                        <a :href="scope.row.attributes.videoFile.attributes.file.attributes.url" download>{{ scope.row.attributes.videoFile.attributes.fileName }}</a>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="成绩单">
+                    <template slot-scope="scope">
+                        <a :href="scope.row.attributes.reportCardFile.attributes.file.attributes.url" download>{{ scope.row.attributes.reportCardFile.attributes.fileName }}</a>
+                    </template>
                 </el-table-column>
                 <!-- <el-table-column
                     prop="status1"
@@ -44,13 +62,12 @@
                 <el-table-column
                     prop="passStatus"
                     label="是否通过"
-                    width="180"
+                    width="80"
                     >
                 </el-table-column>
                 <el-table-column
-                    fixed="right"
                     label="操作"
-                    width="100">
+                    width="200">
                     <template slot-scope="scope">
                         <!-- <el-button @click="handleCheck(scope.row)" type="text" size="small">查看</el-button> -->
                         <el-button type="text" size="small" @click="showUpdate(scope.row)">更改状态</el-button>

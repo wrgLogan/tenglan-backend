@@ -1,0 +1,21 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.title{
+    font-size: 15px;
+}
+
+.el-table{
+    box-shadow: 0px 0px 15px 1px rgba(0,0,0, .1);
+}
+
+.el-main{
+    padding: 20px;
+}
+
+.page{
+    padding: 20px;
+}
