@@ -61,13 +61,13 @@
                 </el-table-column> -->
                 <el-table-column
                     prop="passStatus"
-                    label="是否通过"
-                    width="80"
+                    label="审核状态"
+                    width="120"
                     >
                 </el-table-column>
                 <el-table-column
                     label="操作"
-                    width="200">
+                    width="100">
                     <template slot-scope="scope">
                         <!-- <el-button @click="handleCheck(scope.row)" type="text" size="small">查看</el-button> -->
                         <el-button type="text" size="small" @click="showUpdate(scope.row)">更改状态</el-button>

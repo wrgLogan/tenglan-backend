@@ -127,6 +127,7 @@ var install = function(Vue, option) {
         var opt = opt || {};
         var start = opt.start || 0;
         var limit = opt.limit || 10;
+        var keyword = opt.keyword;
 
         // obj
         var query = new AV.Query('Project');
@@ -135,9 +136,16 @@ var install = function(Vue, option) {
         query.limit(limit);
         query.skip(start);
 
+        if (keyword) {
+            query.contains('title', keyword);
+        }
+
         return new Promise(function(resolve, reject) {
             
             query.find().then(function (list) {
+                var list = list.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
                 query.count().then(function (count) {
                     resolve({
                         list: list,
@@ -279,7 +287,11 @@ var install = function(Vue, option) {
         query.skip(start);
 
         return new Promise(function(resolve, reject) {
+            
             query.find().then(function(list) {
+                var list = list.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
                 query.count().then(function(count) {
                     resolve({
                         list: list,
@@ -429,7 +441,6 @@ var install = function(Vue, option) {
             });
         });
     };
-
     
 }
 

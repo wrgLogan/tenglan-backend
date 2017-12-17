@@ -19,3 +19,12 @@ header{
 .page{
     padding: 20px;
 }
+
+.top-btns{
+    display: flex;
+}
+
+.top-btns .input-with-select{
+    width: 230px;
+    margin-right: 20px;
+}

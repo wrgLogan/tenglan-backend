@@ -5,11 +5,20 @@ export default {
             applicationList: [],
             applyStatus: null,
             statusOptions: [{
-                label: '未通过',
-                value: 'NO'
+                label: '审核中',
+                value: 'IN_REVIEW'
             },{
-                label: '通过',
-                value: 'YES'
+                label: '审核通过',
+                value: 'SUCCESS'
+            },{
+                label: '审核失败',
+                value: 'FAIL'
+            },{
+                label: '需要面试',
+                value: 'NEED_INTERVIEW'
+            },{
+                label: '已删除',
+                value: 'DELETED'
             }],
             statusDialogVisible: false,
             checkedApplication: null
@@ -28,8 +37,11 @@ export default {
         getApplicationList(){
             var _this = this;
             var passEnum = {
-                'NO': '否',
-                'YES': '是'
+                'IN_REVIEW': '审核中',
+                'SUCCESS': '审核通过',
+                'FAIL': '审核失败',
+                'NEED_INTERVIEW': '需要面试',
+                'DELETED': '已删除'
             };
             this.getApplications().then(function(res) {
                 console.log(res);

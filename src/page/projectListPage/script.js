@@ -23,14 +23,15 @@ export default {
                 value: '3'
             }],
             projStatus: null,
-            checkedProj: null
+            checkedProj: null,
+            keyword: ''
         }
     },
     mounted() {
         var AV = this.AV;
         var _this = this;
         // var statusEnum = ['未开始','进行中','已结束'];
-        this.getUsers(0, 10);
+        this.getAllProjects(0, 10);
     },
     methods: {
         handleCheck(item) {
@@ -43,13 +44,14 @@ export default {
                 title: this.addProjForm.title
             }).then(function() {
                 _this.dialogFormVisible = false;
-                _this.getUsers(0, 10);
+                _this.getAllProjects(0, 10);
             })
         },
-        getUsers(start, limit) {
+        getAllProjects(start, limit) {
             var _this = this;
+            var keyword = this.keyword;
             var statusEnum = {'0': '未上线', '1': '即将启动', '2': '正在进行', '3': '往期项目'};
-            _this.getProjects({start: start, limit: limit}).then(function(res) {
+            _this.getProjects({start: start, limit: limit, keyword: keyword}).then(function(res) {
                 var projectList = [];
                 res.list.forEach(function(item) {
                     var obj = item.attributes;
@@ -77,12 +79,17 @@ export default {
                 objectId: this.checkedProj.objectId
             }).then(function(){
                 _this.statusDialogVisible = false;
-                _this.getUsers(0, 10);
+                _this.getAllProjects(0, 10);
             });
         },
         toEditProject(proj) {
             console.log(proj);
             this.$switchTo(`/projectinfo/${proj.objectId}`);
+        },
+        search() {
+            var _this  = this;
+            var keyword = this.keyword;
+            this.getAllProjects(0, 10);
         }
     },
 }

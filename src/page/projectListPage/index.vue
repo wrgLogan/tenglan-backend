@@ -4,6 +4,9 @@
             <header>
                 <div class="title">{{ title }}</div>
                 <div class="top-btns">
+                    <el-input placeholder="请输入内容" v-model="keyword" class="input-with-select">
+                        <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+                    </el-input>
                     <el-button type="primary"  @click="dialogFormVisible = true">+ 新建项目</el-button>
                 </div>
             </header>
