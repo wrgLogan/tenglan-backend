@@ -23,11 +23,11 @@
                     label="性别"
                     width="50">
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                     prop="age"
                     label="年龄"
                     width="50">
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column
                     prop="mobilePhone"
                     label="手机号"
@@ -36,17 +36,22 @@
                 <el-table-column
                     prop="university"
                     label="学校"
+                    width="150"
                     >
                 </el-table-column>
                 <el-table-column
-                    prop="education"
-                    label="教育水平"
+                    prop="grade"
+                    label="年级"
                     width="80">
                 </el-table-column>
                 <el-table-column
                     prop="city"
                     label="现居城市"
                     width="80">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="联系地址">
                 </el-table-column>
                 <el-table-column
                     prop="joinNum"

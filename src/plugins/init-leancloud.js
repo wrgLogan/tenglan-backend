@@ -52,17 +52,50 @@ var install = function(Vue, option) {
         return new Promise(function(resolve, reject) {
             
             query.find().then(function (list) {
-                query.count().then(function (count) {
-                    resolve({
-                        list: list,
-                        start: start,
-                        limit: limit,
-                        total: count,
-                        totalPage: Math.ceil(count / limit)
-                    });
-                }, function (err) {
-                    reject(err);
+                
+                var queryArr = [];
+                list.forEach(function(u, index) {
+                    var q = new AV.Query('Application');
+                    q.equalTo('applicant', u);
+                    queryArr.push(q);
+
                 });
+                console.log(queryArr);
+                var applicatinQuery = AV.Query.or.apply(AV.Query, queryArr);
+                applicatinQuery.notEqualTo('status1', 'DELETED');
+
+                applicatinQuery.find().then(applyList => {
+                    console.log(applyList);
+                    list.forEach(function(user) {
+                        console.log(applyList);
+                        user.attributes.applyNum = 0;
+                        user.attributes.joinNum = 0;
+                        applyList.forEach(function(application) {
+                            console.log(application);
+                            if (application.attributes.applicant.id == user.id) {
+                                if (application.attributes.status1 == 'SUCCESS') {
+                                    user.attributes.joinNum++;
+                                }
+
+                                user.attributes.applyNum++;
+                            }
+                        });
+                    });
+                    query.count().then(function (count) {
+                        resolve({
+                            list: list,
+                            pagination: {
+                                start: start,
+                                limit: limit,
+                                total: count,
+                                totalPage: Math.ceil(count / limit)
+                            }
+                        });
+                    }, function (err) {
+                        reject(err);
+                    });
+                });
+                
             }, function(err) {
                 reject(err);
             });

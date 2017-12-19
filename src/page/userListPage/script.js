@@ -8,7 +8,11 @@ export default {
                 title: '',
                 content: ''
             },
-            addVisible: false
+            addVisible: false,
+            genderEnum: {
+                'FEMALE': '女',
+                'MALE': '男'
+            }
         }
     },
     mounted() {
@@ -31,7 +35,7 @@ export default {
                     return obj;
                 });
                 _this.userList.forEach(function(user) {
-                    user.age = 16;
+                    user.gender = _this.genderEnum[user.gender] || '保密';
                 });
             }).catch(function(err) {
                 console.log(err);
