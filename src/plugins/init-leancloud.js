@@ -182,10 +182,12 @@ var install = function(Vue, option) {
                 query.count().then(function (count) {
                     resolve({
                         list: list,
-                        start: start,
-                        limit: limit,
-                        total: count,
-                        totalPage: Math.ceil(count / limit)
+                        pagination: {
+                            start: start,
+                            limit: limit,
+                            total: count,
+                            totalPage: Math.ceil(count / limit)
+                        }
                     });
                 }, function (err) {
                     reject(err);
@@ -394,6 +396,8 @@ var install = function(Vue, option) {
         var query = new AV.Query('DownloadFile');
         query.include('file');
         query.equalTo('type', 'newsFile');
+        query.skip(start);
+        query.limit(limit);
 
         return new Promise((resolve, reject) => {
             query.find().then(function(list) {

@@ -209,4 +209,9 @@ body {
     background: #F17A7A;
     color: #fff;
 } */
+
+.el-pagination{
+  margin-top: 20px;
+  text-align: right;
+}
 </style>

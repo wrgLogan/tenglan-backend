@@ -12,6 +12,10 @@ export default {
             genderEnum: {
                 'FEMALE': '女',
                 'MALE': '男'
+            },
+            pagination: {
+                start: 0,
+                limit: 10
             }
         }
     },
@@ -24,11 +28,12 @@ export default {
             var _this = this;
     
             _this.getUsers({
-                start: 0,
-                limit: 10
+                start: this.pagination.start,
+                limit: this.pagination.limit
             }).then(function(res) {
                 console.log(res);
                 var users = res.list;
+                _this.pagination = res.pagination;
                 _this.userList = users.map(function(r) { 
                     var obj = r.attributes;
                     obj.objectId = r.id;
@@ -89,6 +94,11 @@ export default {
                     type: 'error'
                 })
             });
+        },
+        pageChange(page) {
+            var start = this.pagination.limit * (page - 1);
+            this.pagination.start = start;
+            this.getAllUsers();
         }
     }
 }

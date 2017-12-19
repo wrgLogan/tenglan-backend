@@ -74,6 +74,13 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-pagination
+                layout="prev, pager, next"
+                @current-change="pageChange"
+                :page-size="pagination.limit"
+                :current-page="Math.ceil(pagination.start / pagination.limit) + 1"
+                :total="pagination.total">
+            </el-pagination>
         </el-main>
         <el-dialog
         title="修改申请状态"

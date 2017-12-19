@@ -21,7 +21,11 @@ export default {
                 value: 'DELETED'
             }],
             statusDialogVisible: false,
-            checkedApplication: null
+            checkedApplication: null,
+            pagination: {
+                start: 0,
+                limit: 10
+            }
         }
     },
     mounted() {
@@ -43,8 +47,14 @@ export default {
                 'NEED_INTERVIEW': '需要面试',
                 'DELETED': '已删除'
             };
-            this.getApplications().then(function(res) {
+            this.getApplications({
+                start: _this.pagination.start,
+                limit: _this.pagination.limit
+            }).then(function(res) {
                 console.log(res);
+
+                _this.pagination = res.pagination;
+                console.log(_this);
                 
                 res.list.forEach(function(item) {
                     // console.log(item);
@@ -76,6 +86,11 @@ export default {
                     type: 'error'
                 })
             })
+        },
+        pageChange(page) {
+            var start = this.pagination.limit * (page - 1);
+            this.pagination.start = start;
+            this.getApplicationList();
         }
     }
 }

@@ -7,7 +7,10 @@ export default {
             uploadFileObj: null,
             statusEnum: ['未上线', '已上线'],
             statusDialogVisible: false,
-
+            pagination: {
+                start: 0,
+                limit: 10
+            }
         }
     },
     mounted() {
@@ -21,8 +24,12 @@ export default {
         },
         getFiles() {
             var _this = this;
-            this.getDownloadFiles().then(res => {
-                console.log(res.list);
+            this.getDownloadFiles({
+                start: _this.pagination.start,
+                limit: _this.pagination.limit
+            }).then(res => {
+                console.log(res);
+                _this.pagination = res.pagination;
                 res.list.forEach(file => {
                     file.createdAt = _this.formatDate(new Date(file.createdAt), 'yyyy-MM-dd hh:mm:ss');
                     file.statusTxt = _this.statusEnum[file.attributes.status];
@@ -65,6 +72,11 @@ export default {
             fileObj.save().then(function() {
                 _this.getFiles();
             })
+        },
+        pageChange(page) {
+            var start = this.pagination.limit * (page - 1);
+            this.pagination.start = start;
+            this.getFiles();
         }
     },
 }

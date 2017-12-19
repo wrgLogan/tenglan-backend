@@ -5,6 +5,10 @@ var data = {
     form: {
         title: '',
         content: ''
+    },
+    pagination: {
+        start: 0,
+        limit: 10
     }
 };
 
@@ -16,8 +20,12 @@ export default {
         getMsgs() {
             var _this = this;
 
-            _this.getMessages().then(res => {
+            _this.getMessages({
+                start: this.pagination.start,
+                limit: this.pagination.limit
+            }).then(res => {
                 console.log(res);
+                _this.pagination = res.pagination;
                 res.list.forEach(msg => {
                     if (!msg.attributes.receiver) {
                         msg.attributes.receiver = {
@@ -58,6 +66,11 @@ export default {
                     type: 'err'
                 });
             })
+        },
+        pageChange(page) {
+            var start = this.pagination.limit * (page - 1);
+            this.pagination.start = start;
+            this.getMsgs();
         }
     },
     mounted() {

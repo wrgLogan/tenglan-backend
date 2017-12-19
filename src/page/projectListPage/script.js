@@ -24,14 +24,18 @@ export default {
             }],
             projStatus: null,
             checkedProj: null,
-            keyword: ''
+            keyword: '',
+            pagination: {
+                start: 0,
+                limit: 10
+            }
         }
     },
     mounted() {
         var AV = this.AV;
         var _this = this;
         // var statusEnum = ['未开始','进行中','已结束'];
-        this.getAllProjects(0, 10);
+        this.getAllProjects();
     },
     methods: {
         handleCheck(item) {
@@ -44,15 +48,16 @@ export default {
                 title: this.addProjForm.title
             }).then(function() {
                 _this.dialogFormVisible = false;
-                _this.getAllProjects(0, 10);
+                _this.getAllProjects();
             })
         },
-        getAllProjects(start, limit) {
+        getAllProjects() {
             var _this = this;
             var keyword = this.keyword;
             var statusEnum = {'0': '未上线', '1': '即将启动', '2': '正在进行', '3': '往期项目'};
-            _this.getProjects({start: start, limit: limit, keyword: keyword}).then(function(res) {
+            _this.getProjects({start: this.pagination.start, limit: this.pagination.limit, keyword: keyword}).then(function(res) {
                 var projectList = [];
+                _this.pagination = res.pagination;
                 res.list.forEach(function(item) {
                     var obj = item.attributes;
                     obj.projStatus = statusEnum[item.attributes.status];
@@ -79,7 +84,7 @@ export default {
                 objectId: this.checkedProj.objectId
             }).then(function(){
                 _this.statusDialogVisible = false;
-                _this.getAllProjects(0, 10);
+                _this.getAllProjects();
             });
         },
         toEditProject(proj) {
@@ -89,7 +94,12 @@ export default {
         search() {
             var _this  = this;
             var keyword = this.keyword;
-            this.getAllProjects(0, 10);
+            this.getAllProjects();
+        },
+        pageChange(page) {
+            var start = this.pagination.limit * (page - 1);
+            this.pagination.start = start;
+            this.getAllProjects();
         }
     },
 }
